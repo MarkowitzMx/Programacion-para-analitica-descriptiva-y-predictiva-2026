@@ -1,0 +1,459 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "id": "6a365882",
+      "metadata": {
+        "id": "6a365882"
+      },
+      "source": [
+        "# Actividad de programación — Sesión 04\n",
+        "## Funciones incorporadas y comprensiones\n",
+        "\n",
+        "**Programación para Analítica Descriptiva y Predictiva**\n",
+        "Maestría en Inteligencia Artificial y Analítica de Datos · UACJ\n",
+        "\n",
+        "**Nombre del/de la estudiante:** _____________________________\n",
+        "\n",
+        "**Matrñicula del/de la estudiante:** _____________________________\n",
+        "---\n",
+        "\n",
+        "## Instrucciones generales\n",
+        "\n",
+        "- Esta actividad **sí se califica** y se entrega de forma individual.\n",
+        "- Responde directamente en las celdas marcadas con `# ESCRIBE TU CÓDIGO AQUÍ`. No borres las celdas de instrucciones ni las de datos.\n",
+        "- Antes de entregar: en el menú de Colab, ve a **Entorno de ejecución → Ejecutar todas** y confirma que todas las celdas corren sin error, de arriba hacia abajo, sin saltarte ninguna.\n",
+        "- Sube el notebook a tu repositorio de GitHub (como se explicó en la Sesión 1) y entrega el enlace en Moodle.\n",
+        "- **No está permitido usar `def`, `lambda` ni comprensiones anidadas de más de dos niveles** — todo lo que se pide aquí se resuelve con lo visto en las presentaciones de esta sesión: `enumerate()`, `zip()`, `sorted()`, `reversed()`, y comprensiones de listas, diccionarios y conjuntos.\n",
+        "- Cada ejercicio indica su valor en puntos. Total: **100 puntos**.\n",
+        "\n",
+        "### Criterios de evaluación\n",
+        "- El código corre sin errores (obligatorio para recibir puntos en ese ejercicio).\n",
+        "- El resultado es exactamente el que pide el enunciado — nombre de variable, tipo de dato y contenido.\n",
+        "- Se usa la herramienta indicada (por ejemplo, si el ejercicio pide `zip()`, una solución que no lo use no cuenta como correcta aunque llegue al mismo resultado).\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "31c0ff59",
+      "metadata": {
+        "id": "31c0ff59"
+      },
+      "source": [
+        "## Datos de trabajo\n",
+        "\n",
+        "Ejecuta esta celda sin modificarla — todos los ejercicios se resuelven a partir de estos datos.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "2ba22cce",
+      "metadata": {
+        "id": "2ba22cce"
+      },
+      "outputs": [],
+      "source": [
+        "estaciones = [\n",
+        "    {\"nombre\": \"Juárez\",     \"region\": \"Norte\",  \"temperatura\": 31.2, \"poblacion\": 1512450},\n",
+        "    {\"nombre\": \"Chihuahua\",  \"region\": \"Centro\", \"temperatura\": 28.5, \"poblacion\": 925762},\n",
+        "    {\"nombre\": \"Delicias\",   \"region\": \"Centro\", \"temperatura\": 33.7, \"poblacion\": 137935},\n",
+        "    {\"nombre\": \"Cuauhtémoc\", \"region\": \"Norte\",  \"temperatura\": 22.9, \"poblacion\": 172387},\n",
+        "    {\"nombre\": \"Parral\",     \"region\": \"Sur\",    \"temperatura\": 26.4, \"poblacion\": 111200},\n",
+        "]\n",
+        "\n",
+        "ciudades = [e[\"nombre\"] for e in estaciones]\n",
+        "temperaturas = [e[\"temperatura\"] for e in estaciones]\n",
+        "\n",
+        "print(estaciones)\n",
+        "print(ciudades)\n",
+        "print(temperaturas)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "839ff032",
+      "metadata": {
+        "id": "839ff032"
+      },
+      "source": [
+        "`lecturas_semana` es una lista de listas: cada sublista trae las temperaturas de tres días para una ciudad, en el mismo orden que `ciudades` (posición 0 = Juárez, posición 1 = Chihuahua, posición 2 = Delicias).\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "090c2e10",
+      "metadata": {
+        "id": "090c2e10"
+      },
+      "outputs": [],
+      "source": [
+        "lecturas_semana = [\n",
+        "    [30.1, 31.5, 29.8],  # Juárez\n",
+        "    [27.0, 28.9, 26.5],  # Chihuahua\n",
+        "    [32.0, 33.7, 31.1],  # Delicias\n",
+        "]\n",
+        "\n",
+        "print(lecturas_semana)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "ef7826cd",
+      "metadata": {
+        "id": "ef7826cd"
+      },
+      "source": [
+        "---\n",
+        "# Parte 1 · Funciones incorporadas\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "2981df40",
+      "metadata": {
+        "id": "2981df40"
+      },
+      "source": [
+        "## Ejercicio 1 — `enumerate()` (10 puntos)\n",
+        "\n",
+        "Construye la lista `reporte_ciudades`, donde cada elemento sea una cadena con el formato `\"Ciudad N: nombre\"`, numerando **a partir de 1** (usa el parámetro `start` de `enumerate`). Recorre `ciudades`.\n",
+        "\n",
+        "Ejemplo del primer elemento esperado: `\"Ciudad 1: Juárez\"`.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "9758952f",
+      "metadata": {
+        "id": "9758952f"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# enumerate(ciudades, start=1) entrega pares (numero, nombre) empezando en 1\n",
+        "reporte_ciudades = [f\"Ciudad {n}: {nombre}\" for n, nombre in enumerate(ciudades, start=1)]\n",
+        "\n",
+        "print(reporte_ciudades)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "eab7d354",
+      "metadata": {
+        "id": "eab7d354"
+      },
+      "source": [
+        "## Ejercicio 2 — `zip()` + `dict()` (10 puntos)\n",
+        "\n",
+        "Construye `temperatura_por_ciudad`, un diccionario que empareje cada ciudad con su temperatura, usando `dict(zip(...))` sobre `ciudades` y `temperaturas`.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "24718ddc",
+      "metadata": {
+        "id": "24718ddc"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# zip empareja ciudades[i] con temperaturas[i]; dict() convierte esos pares en un diccionario\n",
+        "temperatura_por_ciudad = dict(zip(ciudades, temperaturas))\n",
+        "\n",
+        "print(temperatura_por_ciudad)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "babb7881",
+      "metadata": {
+        "id": "babb7881"
+      },
+      "source": [
+        "## Ejercicio 3 — `zip()` + `enumerate()` (10 puntos)\n",
+        "\n",
+        "Usando el patrón `enumerate(zip(...))`, imprime una línea por ciudad con el formato exacto:\n",
+        "\n",
+        "```\n",
+        "1. Juárez: 31.2°C\n",
+        "2. Chihuahua: 28.5°C\n",
+        "...\n",
+        "```\n",
+        "\n",
+        "(numeración desde 1). No necesitas guardar el resultado en una variable — solo imprime.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "ad94f63d",
+      "metadata": {
+        "id": "ad94f63d"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# zip(ciudades, temperaturas) produce tuplas (ciudad, temperatura);\n",
+        "# enumerate(..., start=1) agrega el número de fila empezando en 1\n",
+        "for numero, (ciudad, temperatura) in enumerate(zip(ciudades, temperaturas), start=1):\n",
+        "    print(f\"{numero}. {ciudad}: {temperatura}°C\")"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "6c02e879",
+      "metadata": {
+        "id": "6c02e879"
+      },
+      "source": [
+        "## Ejercicio 4 — `sorted()` (10 puntos)\n",
+        "\n",
+        "Construye `orden_por_temperatura`: una lista de tuplas `(temperatura, ciudad)`, ordenada de **menor a mayor temperatura**.\n",
+        "\n",
+        "Pista: no necesitas `key` para este ejercicio — piensa en qué compara Python primero cuando ordena una lista de tuplas, y en qué fue lo primero que le diste a `zip`.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "ddfae220",
+      "metadata": {
+        "id": "ddfae220"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# Al poner temperaturas primero en el zip, cada tupla es (temperatura, ciudad);\n",
+        "# sorted() sobre tuplas compara primero el primer elemento (la temperatura)\n",
+        "orden_por_temperatura = sorted(zip(temperaturas, ciudades))\n",
+        "\n",
+        "print(orden_por_temperatura)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "56ec5755",
+      "metadata": {
+        "id": "56ec5755"
+      },
+      "source": [
+        "## Ejercicio 5 — `reversed()` (10 puntos)\n",
+        "\n",
+        "Usando `orden_por_temperatura` del ejercicio anterior, construye `orden_descendente`: la misma lista de tuplas, pero de mayor a menor temperatura — **sin volver a ordenar**, solo invirtiendo el resultado que ya tienes.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "82ecbc60",
+      "metadata": {
+        "id": "82ecbc60"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# reversed() devuelve un iterador que recorre la secuencia al revés; list() lo materializa\n",
+        "orden_descendente = list(reversed(orden_por_temperatura))\n",
+        "\n",
+        "print(orden_descendente)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "0a6db890",
+      "metadata": {
+        "id": "0a6db890"
+      },
+      "source": [
+        "---\n",
+        "# Parte 2 · Comprensiones\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "57a47cef",
+      "metadata": {
+        "id": "57a47cef"
+      },
+      "source": [
+        "## Ejercicio 6 — Comprensión de listas (10 puntos)\n",
+        "\n",
+        "Construye `ciudades_calidas`: una lista con el `nombre` de las estaciones cuya `temperatura` sea mayor a 27, usando una comprensión de listas sobre `estaciones`.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "4fd2e6e1",
+      "metadata": {
+        "id": "4fd2e6e1"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "ciudades_calidas = [e[\"nombre\"] for e in estaciones if e[\"temperatura\"] > 27]\n",
+        "\n",
+        "print(ciudades_calidas)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "79fbf826",
+      "metadata": {
+        "id": "79fbf826"
+      },
+      "source": [
+        "## Ejercicio 7 — Comprensión de diccionarios (10 puntos)\n",
+        "\n",
+        "Construye `poblacion_centro`: un diccionario `nombre: poblacion`, solo con las estaciones cuya `region` sea `\"Centro\"`, usando una comprensión de diccionarios con condición.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "1c3c9b45",
+      "metadata": {
+        "id": "1c3c9b45"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "poblacion_centro = {e[\"nombre\"]: e[\"poblacion\"] for e in estaciones if e[\"region\"] == \"Centro\"}\n",
+        "\n",
+        "print(poblacion_centro)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "5112bde0",
+      "metadata": {
+        "id": "5112bde0"
+      },
+      "source": [
+        "## Ejercicio 8 — Comprensión de conjuntos (10 puntos)\n",
+        "\n",
+        "Construye `regiones_unicas`: el conjunto de todas las regiones distintas presentes en `estaciones`, usando una comprensión de conjuntos.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "c2ad210d",
+      "metadata": {
+        "id": "c2ad210d"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# Un set() nunca guarda duplicados, por eso {\"Norte\", \"Centro\", \"Sur\"} sale con 3 elementos\n",
+        "# aunque \"Norte\" y \"Centro\" aparezcan dos veces en estaciones\n",
+        "regiones_unicas = {e[\"region\"] for e in estaciones}\n",
+        "\n",
+        "print(regiones_unicas)\n",
+        "print(len(regiones_unicas))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "709b0fb0",
+      "metadata": {
+        "id": "709b0fb0"
+      },
+      "source": [
+        "## Ejercicio 9 — Comprensión anidada / *flattening* (10 puntos)\n",
+        "\n",
+        "Construye `temperaturas_altas`: una sola lista plana con todas las temperaturas de `lecturas_semana` (sin importar de qué ciudad vinieron) que sean mayores a 30, usando **una sola comprensión anidada** (dos `for` + un `if`, en una sola expresión).\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "b3ae9a14",
+      "metadata": {
+        "id": "b3ae9a14"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# El primer 'for' recorre cada sublista (cada ciudad) dentro de lecturas_semana;\n",
+        "# el segundo 'for' recorre cada temperatura dentro de esa sublista;\n",
+        "# el 'if' filtra las mayores a 30. El resultado queda \"aplanado\" en una sola lista.\n",
+        "temperaturas_altas = [t for dia_ciudad in lecturas_semana for t in dia_ciudad if t > 30]\n",
+        "\n",
+        "print(temperaturas_altas)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "adefa1d8",
+      "metadata": {
+        "id": "adefa1d8"
+      },
+      "source": [
+        "---\n",
+        "# Reto integrador (10 puntos)\n",
+        "\n",
+        "Construye `resumen_norte`: una lista de cadenas con el formato `\"N. nombre (temperatura°C)\"`, que cumpla **todas** estas condiciones:\n",
+        "\n",
+        "1. Solo incluye estaciones cuya `region` sea `\"Norte\"`.\n",
+        "2. Está ordenada de mayor a menor temperatura.\n",
+        "3. Está numerada empezando en 1 (el número va al inicio de cada cadena, como en el Ejercicio 1).\n",
+        "\n",
+        "Debes combinar al menos tres de las herramientas vistas en esta sesión (comprensión de listas, `sorted`, `enumerate`, `zip`, `reversed`). No hay una única forma de combinarlas, pero el resultado final debe ser exactamente el mismo para todos: dos elementos, con Juárez primero.\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "d8a0317c",
+      "metadata": {
+        "id": "d8a0317c"
+      },
+      "outputs": [],
+      "source": [
+        "# ESCRIBE TU CÓDIGO AQUÍ\n",
+        "# Paso 1 (comprensión de listas): quedarnos solo con las tuplas (temperatura, nombre) de la región Norte\n",
+        "# Paso 2 (sorted con reverse=True): ordenar esas tuplas de mayor a menor temperatura\n",
+        "# Paso 3 (enumerate start=1): numerar el resultado ya ordenado y armar el string final\n",
+        "norte_por_temperatura = sorted(\n",
+        "    [(e[\"temperatura\"], e[\"nombre\"]) for e in estaciones if e[\"region\"] == \"Norte\"],\n",
+        "    reverse=True\n",
+        ")\n",
+        "\n",
+        "resumen_norte = [\n",
+        "    f\"{n}. {nombre} ({temperatura}°C)\"\n",
+        "    for n, (temperatura, nombre) in enumerate(norte_por_temperatura, start=1)\n",
+        "]\n",
+        "\n",
+        "print(resumen_norte)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "id": "882dc18e",
+      "metadata": {
+        "id": "882dc18e"
+      },
+      "source": [
+        "---\n",
+        "## Antes de entregar\n",
+        "\n",
+        "- [ ] Ejecuté todas las celdas de arriba hacia abajo sin errores (**Entorno de ejecución → Ejecutar todas**).\n",
+        "- [ ] Cada resultado impreso corresponde a lo que pide su ejercicio.\n",
+        "- [ ] No usé `def`, `lambda`, ni comprensiones anidadas de más de dos niveles.\n",
+        "- [ ] Subí el notebook a mi repositorio de GitHub y entregué el enlace en Campus Virtual.\n"
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": []
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
